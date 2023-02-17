@@ -152,7 +152,7 @@ async def logout(request: Request,):
 @router.get("/", response_class=HTMLResponse)
 async def read_item(request: Request):
     addp = await Add_products.all()
-    
+
     return templates.TemplateResponse("index.html", {"request": request, 'addp': addp})
 
 
@@ -216,13 +216,21 @@ async def create_order(request: Request, product_d_id: List[int] = Form(...),
 
 
 @router.post('/billing/',)
-async def create_bill(request: Request, addressuser_id: int = Form(...), order_id: int = Form(...),):
+async def create_bill(request: Request, ostatus_id: int = Form(...),
+                      productname: str = Form(...),
+                      total: str = Form(...),
+                      orderuser_id: str = Form(...), 
+                      addressuser_id: str = Form(...),
+                     qty: str = Form(...),):
     orderuser_id = request.session["user_id"]
-    # clra = await Checkout.get(addressuser_id=addressuser_id).delete()
-    clra = await Checkout.all().delete()
     deletecart = await Addtocart.get(user_id=orderuser_id).delete()
 
-    if await Checkout.create(addressuser_id=addressuser_id, orderuser_id=orderuser_id, order_id=order_id,):
+    if await Checkout.create(addressuser_id=addressuser_id,
+                            total=total,
+                            orderuser_id=orderuser_id, 
+                            qty=qty, 
+                            ostatus_id=ostatus_id, 
+                            productname=productname):
         return RedirectResponse("/confirmation/", status_code=status.HTTP_302_FOUND)
 
 
@@ -238,6 +246,25 @@ async def read_item(request: Request):
 
     return templates.TemplateResponse("checkout.html", {"request": request, "totals": totals, "users": users, "add": add, "total_amount": total_amount, "subtotal_amount": subtotal_amount})
 
+@router.post('/orderhistory/',)
+async def create_orderhistory(request: Request, ostatus_id: int = Form(...),
+                      productname: str = Form(...),
+                      total: str = Form(...),
+                      orderuser_id: str = Form(...), 
+                      addressuser_id: str = Form(...),
+                     qty: str = Form(...),):
+                     
+    orderuser_id = request.session["user_id"]
+    clra = await Checkout.all().delete()
+    
+
+    if await Orderhitory.create(addressuser_id=addressuser_id,
+                            total=total,
+                            orderuser_id=orderuser_id, 
+                            qty=qty, 
+                            ostatus_id=ostatus_id, 
+                            productname=productname):
+        return RedirectResponse("/tracking/", status_code=status.HTTP_302_FOUND)
 
 @router.delete("/delete_cartitem/{id}")
 async def delete_cartproducts(request: Request, id: int):
@@ -250,15 +277,20 @@ async def delete_cartproducts(request: Request, id: int):
 async def read_item(request: Request):
     totals = await Order.all().select_related("product_d", "orderuser")
     billing = await Checkout.all().select_related("addressuser")
+    add = await Address.all()
     for t in totals:
         if request.session['user_id'] == t.orderuser_id:
             total_amount = t.total
-    return templates.TemplateResponse("confirmation.html", {"request": request, "totals": totals, "billing": billing, "total_amount": total_amount})
+    return templates.TemplateResponse("confirmation.html", {"request": request, "totals": totals, "billing": billing, "total_amount": total_amount,"add":add})
 
 
 @router.get("/tracking/", response_class=HTMLResponse)
 async def read_item(request: Request):
-    return templates.TemplateResponse("tracking.html", {"request": request, })
+    billings = await Orderhitory.all().select_related("ostatus")
+    orders = await Orderhitory.all().select_related("orderuser","addressuser","ostatus")
+
+
+    return templates.TemplateResponse("tracking.html", {"request": request, "billings": billings,"orders":orders})
 
 
 @router.get("/profiledetail/", response_class=HTMLResponse)

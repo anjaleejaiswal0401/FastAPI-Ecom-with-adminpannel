@@ -89,11 +89,44 @@ class Address(Model):
     city = fields.CharField(50,)
     state = fields.CharField(choices=STATE_CHOICES,max_length=200)
     pincode = fields.CharField(10)
+
+class Orderstatus(Model):
+    id = fields.IntField(pk=True)
+    name = fields.CharField(200, unique=True)
+    slug = fields.CharField(30)
+    is_active = fields.BooleanField(default=True)
+    updated_at = fields.DatetimeField(auto_now=True)
+    created_at = fields.DatetimeField(auto_now_add=True)  
    
 class Checkout(Model):
     id = fields.IntField(pk=True)
     addressuser= fields.ForeignKeyField("models.Address", related_name= "bill", on_delete="CASCADE")
     orderuser= fields.ForeignKeyField("models.Create_user", related_name= "billu", on_delete="CASCADE")
-    order= fields.ForeignKeyField("models.Order", related_name= "orderr", on_delete="CASCADE")
+    ostatus= fields.ForeignKeyField("models.Orderstatus", related_name= "status", on_delete="CASCADE")
+    productname= fields.CharField(200)
+    qty= fields.CharField(200)
+    total= fields.CharField(200)
+
+class Orderhitory(Model):
+    id = fields.IntField(pk=True)
+    addressuser= fields.ForeignKeyField("models.Address", related_name= "bill1", on_delete="CASCADE")
+    orderuser= fields.ForeignKeyField("models.Create_user", related_name= "billu1", on_delete="CASCADE")
+    ostatus= fields.ForeignKeyField("models.Orderstatus", related_name= "status1", on_delete="CASCADE")
+    productname= fields.CharField(200)
+    qty= fields.CharField(200)
+    total= fields.CharField(200)
+
+
     
+
+
+
+
+
+
+
+
+
+
     Tortoise.init_models(['ecom_API.models'], 'models')
+

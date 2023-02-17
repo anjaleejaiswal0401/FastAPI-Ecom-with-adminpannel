@@ -109,7 +109,7 @@
 	<!--================Order Details Area =================-->
 	<section class="order_details section_gap">
 		<div class="container">
-			<!-- <form action="/confirm/" method="post"> -->
+			<form action="/orderhistory/" method="post">
 				<input type="hidden" name="orderuser_id" value="{{ request.session['user_id']}}">
 				<div class="row order_d_inner">
 					<div class="col-lg-4">
@@ -130,11 +130,15 @@
 										<td>{{t.product_d.name}}</td>
 										<td>{{t.product_d.price}}</td>
 										<td>{{t.quantity}}</td>
+										<input type="hidden" name="total" value="{{t.total}}">
+					                    <input type="hidden" name="qty" value="{{t.quantity}}">
+										<input type="hidden" name="productname" value="{{t.product_d.name}}">
 									</tr>
 									<tr>
 
 										{% endif%}
 										{% endfor %}
+										<input type="hidden" name="ostatus_id" value="1">
 
 							</table>
 							
@@ -146,21 +150,14 @@
 							<h2>Billing Address</h2>
 							{% for b in billing %}
 							{% if request.session['user_id']== b.orderuser_id %}
-							{% if b.addressuser.id ==b.addressuser.id %}
+							<input type="hidden"  value="{{b.addressuser.id}}" name="addressuser_id">
 							<ul class="list">
 								<li><a href="#"><span>Name</span> :{{b.addressuser.name}}</a></li>
-								<input type="hidden" name="name" value="{{b.name}}">
 								<li><a href="#"><span>Phone</span> :{{b.addressuser.phone}}</a></li>
-								<input type="hidden" name="phone" value={{b.phone}}>
 								<li><a href="#"><span>City</span> :{{b.addressuser.city}}</a></li>
-								<input type="hidden" name="city" value={{b.city}}>
 								<li><a href="#"><span>State</span> :{{b.addressuser.state}}</a></li>
-								<input type="hidden" name="state" value={{b.state}}>
 								<li><a href="#"><span>Pincode </span> :{{b.addressuser.pincode}}</a></li>
-								<input type="hidden" name="pincode" value={{b.pincode}}>
 								<li><a href="#"><span>Adress </span> :{{b.addressuser.address}}</a></li>
-								<input type="hidden" name="address" value={{b.address}}>
-								{% endif %}
 								{% endif %}
 								{% endfor%}
 							</ul>
@@ -175,7 +172,7 @@
 									<li><a><span>Total Amount</span> : {{total_amount}}</a></li>
 								</ul>
 							</ul>
-							<a href="/tracking/"><button   class="primary-btn" type="submit">Confirm Order</button></a>
+							<button class="primary-btn" type="submit">Confirm Order</button>
 						</div>
 					</div>
 				</div>
@@ -205,20 +202,18 @@
 						<div class="" id="mc_embed_signup">
 
 							<form target="_blank" novalidate="true"
-								action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
 								method="get" class="form-inline">
 
 								<div class="d-flex flex-row">
 
-									<input class="form-control" name="EMAIL" placeholder="Enter Email"
-										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '"
-										required="" type="email">
+									<input class="form-control"placeholder="Enter Email"
+										onfocus="this.placeholder = ''"  type="email">
 
 
 									<button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right"
 											aria-hidden="true"></i></button>
 									<div style="position: absolute; left: -5000px;">
-										<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value=""
+										<input  tabindex="-1" value=""
 											type="text">
 									</div>
 

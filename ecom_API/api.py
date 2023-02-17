@@ -143,21 +143,6 @@ async def create_subcategory(data: subcategory, category_id: int):
 
         return {"message": " Subcategory added"}
 
-@router.post("/update_profile/")
-async def update_profile(data:profiledt,email:EmailStr
-        ):
-
-    obj = await Create_user.get(email=email)
-    
-
-    if await Profile.filter(address=data.address).exists():
-        return {"message": "address already exists"}
-    else:
-        user_objs = await Profile.create(
-                        address=data.address,email=email,
-                        city=data.city, zipcode=data.zipcode, state=data.state)
-    return {"massage": "added profile"}
-
 @router.put("/update_subcategory/")
 async def update_subcategorys(data:updatesubcategory):
         if await SubCategory.exists(id =data.id):
@@ -313,3 +298,10 @@ async def read_item(request: Request,email:EmailStr):
                    "status": True, "message": jsonable_encoder(update_profile)
                     })
 
+
+
+@router.post("/status/")
+async def create_status(data: orderstatus):
+    status = await Orderstatus.create(name=data.name, slug=slugify(data.name))
+
+    return {"message": " status added"}

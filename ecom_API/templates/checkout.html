@@ -165,16 +165,22 @@
 				<div class="order_box">
 					{% for t in totals %}
 					{% if request.session['user_id']== t.orderuser_id %}
-					<input type="hidden" name="order_id" value="{{t.id}}">
+					<input type="hidden" name="total" value="{{t.total}}">
+					<input type="hidden" name="qty" value="{{t.quantity}}">
+
 
 					<img src="{{url}}/{{t.product_d.product_image}}" alt="" width="50" height="50">
 					<ul class="list list_2">
 						<li><a href="#">Product <span>{{t.product_d.name}}</span></a></li>
 						<li><a href="#">Price <span>{{t.product_d.price}}</span></a></li>
 						<li><a href="#">Quantity <span>{{t.quantity}}</span></a></li>
+						<input type="hidden" name="productname" value="{{t.product_d.name}}">
+						
 					</ul>
 					{% endif %}
 					{% endfor %}
+					<input type="hidden" name="ostatus_id" value="1">
+
 						
 							<ul class="list list_2">
 								<li><a href="#">Total Amount :{{total_amount}}</a></li>

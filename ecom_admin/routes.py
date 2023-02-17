@@ -228,11 +228,12 @@ async def logout(request: Request,):
 @router.get("/adminindex/", response_class=HTMLResponse)
 async def read_item(request: Request):
     user = await Register_admin.all()
+    order_status = await Orderstatus.all()
 
-    orders = await Checkout.all().select_related("order","orderuser","addressuser")
-    totalorder=await Checkout.all().count()
+    orders = await Orderhitory.all().select_related("orderuser","addressuser","ostatus")
+    totalorder=await Orderhitory.all().count()
     totalproducts = await Add_products.all().count()
-    return templates.TemplateResponse("index.html", {"request": request,"orders":orders ,"totalorder":totalorder,"totalproducts":totalproducts,"user":user})
+    return templates.TemplateResponse("index.html", {"request": request,"orders":orders ,"totalorder":totalorder,"totalproducts":totalproducts,"user":user,"order_status":order_status})
 
 
 @router.get("/adminprofile/", response_class=HTMLResponse)
@@ -251,10 +252,20 @@ async def read_item(request: Request):
 
 @router.get("/adminorders/", response_class=HTMLResponse)
 async def read_item(request: Request):
+    
+    order_status = await Orderstatus.all()
     user = await Register_admin.all()
-    orders = await Checkout.all().select_related("order","orderuser","addressuser",)
-    return templates.TemplateResponse("orders.html", {"request": request,"orders":orders ,"user":user})
+    orders = await Orderhitory.all().select_related("orderuser","addressuser",)
+    return templates.TemplateResponse("orders.html", {"request": request,"orders":orders ,"user":user,"order_status":order_status})
 
+
+@router.post("/update_status/{id}")
+async def update_categorys(request: Request, id:int,ostatus_id:int=Form(...),):
+    category_obj = await Orderhitory.filter(id =id).update(ostatus_id = ostatus_id)
+    # return templates.TemplateResponse("orders.html", {"request": request,})
+    return RedirectResponse("/adminindex/", status_code=status.HTTP_302_FOUND)
+
+         
 
 @router.get("/adminAllproducts/", response_class=HTMLResponse)
 async def read_item(request: Request):

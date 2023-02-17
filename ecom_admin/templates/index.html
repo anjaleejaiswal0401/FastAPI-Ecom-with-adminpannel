@@ -330,8 +330,9 @@
                             <th>No.</th>
                             <th>Invoice No.</th>
                             <th>Client Name</th>
+                            <th>Product Name </th>
                             <th>Product Quantity </th>
-                            <th>Payment Type </th>/
+                            <th>Payment Type </th>
                             <th>Status </th>
                             <th>Date</th>
                             <th>Amount</th>
@@ -340,14 +341,15 @@
                         <tbody>
                           {% for o in orders %}
                           <tr>
-                            <td>{{o.order.id}}</td>
+                            <td>{{o.id}}</td>
                             <td>#54605</td>
                             <td><b>{{o.orderuser.name}}</b> <br> <span class="text-primary">{{o.orderuser.phone}}</span></td>
-                            <td>{{o.order.quantity}}</td>
+                            <td>{{o.productname}}</td>
+                            <td>{{o.qty}}</td>
                             <td>Cash</td>
-                            <td><span class="badge badge-primary">Paid</span></td>
+                            <td><span class="badge badge-primary">{{o.ostatus.name}}</span></td>
                             <td>25/10/2022</td>
-                            <td><strong>{{o.order.total}}</strong></td>
+                            <td><strong>{{o.total}}</strong></td>
                           </tr>
                           {% endfor %}
                         </tbody>

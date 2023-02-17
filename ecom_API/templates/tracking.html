@@ -115,17 +115,36 @@
         <div class="container">
             
             <div class="tracking_box_inner">
-                <p>To track your order please enter your Order ID in the box below and press the "Track" button.</p>
                 <form class="row tracking_form" action="#" method="post" novalidate="novalidate">
                     <div class="col-md-12 form-group">
-                        <input type="text" class="form-control" id="order" name="order" placeholder="Order ID" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Order ID'">
+                        <input type="hidden" class="form-control" id="order" name="order" placeholder="Order ID" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Order ID'">
                     </div>
                     <div class="col-md-12 form-group">
-                        <button type="submit" value="submit" class="primary-btn">Track Order</button>
+                        <table class="table" style="min-width: 845px;">
+                            <thead>
+                              <tr>
+                                <th>Product Name </th>
+                                <th>Product Quantity </th>
+                                <th>status</th>
+                                <th>Amount</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for o in orders %}
+                              <tr>
+                                <td>{{o.productname}}</td>
+                                <td>{{o.qty}}</td>
+                                <td><span class="badge badge-primary">{{o.ostatus.name}}</span></td>
+                                <td><strong>{{o.total}}</strong></td>
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                          </table>
                     </div>
                 </form>
             </div>
         </div>
+
     </section>
     <!--================End Tracking Box Area =================-->
 

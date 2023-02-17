@@ -91,7 +91,5 @@ class cartItems(BaseModel):
 class deletecartproduct(BaseModel):
     id : int
 
-
-# class OAuth2PasswordRequestForm(BaseModel):
-#     email: EmailStr
-#     password: str
+class orderstatus(BaseModel):
+    name : str

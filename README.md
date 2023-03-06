@@ -10,7 +10,7 @@ User pannel can be accessed by anyone who wants to buy products.
 
 Admin pannel can be accessed by registred seller only whose products sold on this web application.
 
-#Features in User pannel
+# Features in User pannel
 User registration, login, update, delete.
 
 worked on Cart, Order, Confirmation, Tracking.
@@ -20,7 +20,7 @@ Login required to confirm order.
 Order with multiple choices of address.
 
 
-#Features in admin pannel
+# Features in admin pannel
 Admin registration, login, update, delete.
 
 Supports creating, reading, updating, and deleting product records and user records.

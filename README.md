@@ -4,6 +4,7 @@ This is a FastAPI project that provides basic ecommerce functionality for managi
 FastAPI is framework of python for developing web application .
 
 WORKED ON THIS WEB APPLICATION
+
 Created an ecommeres website which contains  two pannels user pannel and admin pannel.
 
 User pannel can be accessed by anyone who wants to buy products.
@@ -11,6 +12,7 @@ User pannel can be accessed by anyone who wants to buy products.
 Admin pannel can be accessed by registred seller only whose products sold on this web application.
 
 FEATURES IN USER PANNEL
+
 User registration, login, update, delete.
 
 worked on Cart, Order, Confirmation, Tracking.
@@ -21,6 +23,7 @@ Order with multiple choices of address.
 
 
 FEATURES IN ADMIN PANNEL
+
 Admin registration, login, update, delete.
 
 Supports creating, reading, updating, and deleting product records and user records.
@@ -30,6 +33,7 @@ Approve status of any ordered product Accepted, Dispatch, On The Way, Delivered.
 
 
 TECHNOLOGY USED
+
 Languege:- Python, HTML,CSS,Java Script
 
 Platform:- VScode

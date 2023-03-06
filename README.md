@@ -22,7 +22,6 @@ Login required to confirm order.
 Order with multiple choices of address.
 
 
-**FEATURES IN ADMIN PANNEL**
 # Features in user pannel
 Admin registration, login, update, delete.
 
